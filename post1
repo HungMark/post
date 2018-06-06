@@ -1,0 +1,37 @@
+<html>
+	<body>
+	<h2>新增使用者:</h2>
+	<form action="" method="post">
+		<input type="text" name="id" value=""placeholder="名稱">
+		<input type="text" name="account" value=""placeholder="帳號">
+		<input type="password" name="password" value=""placeholder="密碼">
+		<input type="submit">
+	</form>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $dsn = "mysql:host=localhost;dbname=6305048";
+    $db = new PDO($dsn, '6305048', '6305048');
+	$id = $_POST['id'];
+    $account = $_POST['account'];	  //輸入的使用者名稱
+    $password = $_POST['password']; //輸入的使用者密碼
+	//=========取得查詢結果筆數=======
+	$sql="SELECT * FROM users";	
+	$result=$db->query($sql);
+	$num = $result->rowCount();
+	$num +=1;
+	
+	//================================
+	
+	//==========新增點卷==============
+	$sql = $db->query("INSERT INTO users (id, account, password, points) VALUES ('$id','$account', '$password', '0')"); //新增此資料
+	//$sql = $db->query("DELETE FROM products WHERE name ='$name' "); //刪除此資料
+	//$sql = $db->query("UPDATE `products` SET `price` = '$price' WHERE name ='$name' "); //修改此資料
+	
+	$sql->execute(); //執行
+	//if (!$result) echo "New OK";
+	//================================
+	
+}
+?>
+</body>
+</html>
